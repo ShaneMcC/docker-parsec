@@ -15,6 +15,10 @@ fi
 
 if [ ! -e "${HOME}/.config/parsec" -o ! -e "${HOME}/.config/parsec-persistent" ]; then
   mkdir -p "${HOME}/.config/parsec" "${HOME}/.config/parsec-persistent"
+  if [ ! -e "${HOME}/.config/parsec/config.txt" ]; then
+    SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+    cp "${SCRIPT_DIR}/config.txt" "${HOME}/.config/parsec/config.txt"
+  fi;
 fi;
 
 echo "launching parsec: (u${USERID}:g${GROUPID})"
