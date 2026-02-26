@@ -13,12 +13,18 @@ if [[ "$USERID" != "1000" ]] || [[ "$GROUPID" != "1000" ]]; then
   xhost "local:root"
 fi
 
+if [ ! -e "${HOME}/.config/parsec" -o ! -e "${HOME}/.config/parsec-persistent" ]; then
+  mkdir -p "${HOME}/.config/parsec" "${HOME}/.config/parsec-persistent"
+fi;
+
 echo "launching parsec: (u${USERID}:g${GROUPID})"
 docker run -it --rm --init \
   --env DISPLAY \
   --env PULSE_SERVER \
   -v /tmp/.X11-unix:/tmp/.X11-unix \
   -v "/run/user/$USERID/pulse:/run/user/1000/pulse" \
+  -v "${HOME}/.config/parsec:/home/parsec/.parsec" \
+  -v "${HOME}/.config/parsec-persistent:/home/parsec/.parsec-persistent" \
   --device /dev/dri \
   --net=host \
   ghcr.io/jaredallard/docker-parsec:main app_daemon=1
