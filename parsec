@@ -31,4 +31,4 @@ docker run -it --rm --init \
   -v "${HOME}/.config/parsec-persistent:/home/parsec/.parsec-persistent" \
   --device /dev/dri \
   --net=host \
-  ghcr.io/jaredallard/docker-parsec:main app_daemon=1
+  ghcr.io/shanemcc/docker-parsec:latest app_daemon=1
